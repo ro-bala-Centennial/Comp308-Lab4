@@ -1,0 +1,86 @@
+-- SIGNUP --
+
+mutation {
+  signup(
+    username: "rojen"
+    email: "rojen@example.com"
+    password: "123456"
+    role: "resident"
+  ) {
+    message
+    token
+    user {
+      id
+      username
+      email
+      role
+    }
+  }
+}
+
+RESULT
+{
+  "data": {
+    "signup": {
+      "message": "Signup successful",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmEwMTBmNmI2NzY1Nzg3MzhiMDk1MyIsImVtYWlsIjoicm9qZW5AZXhhbXBsZS5jb20iLCJyb2xlIjoicmVzaWRlbnQiLCJpYXQiOjE3NzM3OTc2NDcsImV4cCI6MTc3Mzg4NDA0N30.vY02hSdCfCyJyTEkv6LOoOiE1mhkwfoDC1v7WUxwCyA",
+      "user": {
+        "id": "69ba010f6b676578738b0953",
+        "username": "rojen",
+        "email": "rojen@example.com",
+        "role": "resident"
+      }
+    }
+  }
+}
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+-- LOGIN --
+
+mutation {
+  login(
+    email: "rojen@example.com"
+    password: "123456"
+  ) {
+    message
+    token
+    user {
+      id
+      username
+      email
+    }
+  }
+}
+
+
+
+\\\\\\\\\\\\\\\\
+-- ME testing --
+
+
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YmEwMTBmNmI2NzY1Nzg3MzhiMDk1MyIsImVtYWlsIjoicm9qZW5AZXhhbXBsZS5jb20iLCJyb2xlIjoicmVzaWRlbnQiLCJpYXQiOjE3NzM3OTc2NDcsImV4cCI6MTc3Mzg4NDA0N30.vY02hSdCfCyJyTEkv6LOoOiE1mhkwfoDC1v7WUxwCyA
+
+
+query {
+  me {
+    id
+    username
+    email
+    role
+  }
+}
+
+RESULT
+
+{
+  "data": {
+    "me": {
+      "id": "69ba010f6b676578738b0953",
+      "username": "rojen",
+      "email": "rojen@example.com",
+      "role": "resident"
+    }
+  }
+}

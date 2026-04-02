@@ -18,6 +18,7 @@ const resolvers = {
       }
 
       return await User.findById(context.user.id);
+      
     },
   },
 

@@ -1,3 +1,4 @@
+const { runCommunityAgent } = require("../services/ai/communityAgentService");
 const CommunityPost = require("../models/CommunityPost");
 const HelpRequest = require("../models/HelpRequest");
 
@@ -24,6 +25,10 @@ const resolvers = {
     getMyHelpRequests: async (_, __, context) => {
       requireAuth(context);
       return await HelpRequest.find({ author: context.user.id }).sort({ createdAt: -1 });
+    },
+
+    communityAIQuery: async (_, { input }) => {
+      return await runCommunityAgent(input);
     },
   },
 

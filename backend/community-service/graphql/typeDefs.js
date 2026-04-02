@@ -3,6 +3,7 @@ const { gql } = require("apollo-server-express");
 const typeDefs = gql`
   type CommunityPost {
     id: ID!
+    _id: ID!
     author: ID!
     title: String!
     content: String!
@@ -14,6 +15,7 @@ const typeDefs = gql`
 
   type HelpRequest {
     id: ID!
+    _id: ID!
     author: ID!
     description: String!
     location: String
@@ -23,7 +25,14 @@ const typeDefs = gql`
     updatedAt: String
   }
 
+  type AIResponse {
+    text: String!
+    suggestedQuestions: [String]!
+    retrievedPosts: [CommunityPost]!
+  }
+
   type Query {
+    communityAIQuery(input: String!): AIResponse!
     getPosts: [CommunityPost!]!
     getPostsByCategory(category: String!): [CommunityPost!]!
     getHelpRequests: [HelpRequest!]!

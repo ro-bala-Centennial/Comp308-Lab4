@@ -48,6 +48,10 @@ body {
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
 }
 
+.tool-panel {
+  backdrop-filter: blur(10px);
+}
+
 .community-chat-window {
   min-height: 420px;
   max-height: 420px;
@@ -68,6 +72,45 @@ body {
 .tool-panel h2,
 .community-ai-card h2 {
   color: #111827;
+}
+
+.tool-panel .form-control,
+.tool-panel .form-select,
+.community-ai-card .form-control {
+  border-radius: 14px;
+  border-color: rgba(148, 163, 184, 0.35);
+  padding: 0.8rem 0.95rem;
+  box-shadow: none;
+}
+
+.tool-panel .form-control:focus,
+.tool-panel .form-select:focus,
+.community-ai-card .form-control:focus {
+  border-color: rgba(13, 110, 253, 0.55);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.12);
+}
+
+.form-min-width {
+  min-width: 220px;
+}
+
+.content-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.07);
+  border-radius: 20px;
+}
+
+.content-note {
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  background: rgba(37, 99, 235, 0.06);
+  color: #334155;
+}
+
+.tool-panel button,
+.community-ai-card button {
+  border-radius: 999px;
+  padding-inline: 1rem;
 }
 
 @media (max-width: 768px) {

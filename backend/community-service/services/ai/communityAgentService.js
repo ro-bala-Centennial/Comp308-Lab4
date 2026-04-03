@@ -1,6 +1,29 @@
 const CommunityPost = require("../../models/CommunityPost");
 
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const STOP_WORDS = new Set([
+  "a",
+  "an",
+  "and",
+  "any",
+  "are",
+  "about",
+  "for",
+  "how",
+  "in",
+  "is",
+  "of",
+  "on",
+  "or",
+  "the",
+  "to",
+  "what",
+  "when",
+  "where",
+  "which",
+  "who",
+  "why",
+]);
 
 const buildSuggestedQuestions = (input, posts) => {
   const category = posts[0]?.category;
@@ -49,20 +72,23 @@ const runCommunityAgent = async (input) => {
   const searchRegex = new RegExp(escapeRegex(search), "i");
   const keywordRegexes = search
     .split(/\s+/)
-    .filter(Boolean)
+    .map((term) => term.toLowerCase())
+    .filter((term) => term && term.length > 2 && !STOP_WORDS.has(term))
     .map((term) => new RegExp(escapeRegex(term), "i"));
 
+  const searchClauses = [
+    { title: searchRegex },
+    { content: searchRegex },
+    { category: searchRegex },
+    ...keywordRegexes.flatMap((regex) => ([
+      { title: regex },
+      { content: regex },
+      { category: regex },
+    ])),
+  ];
+
   const broadMatches = await CommunityPost.find({
-    $or: [
-      { title: searchRegex },
-      { content: searchRegex },
-      { category: searchRegex },
-      ...keywordRegexes.flatMap((regex) => ([
-        { title: regex },
-        { content: regex },
-        { category: regex },
-      ])),
-    ],
+    $or: searchClauses,
   })
     .sort({ createdAt: -1 })
     .limit(5);

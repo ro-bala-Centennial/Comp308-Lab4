@@ -94,6 +94,9 @@ const resolvers = {
 
       const request = await HelpRequest.findById(id);
       if (!request) throw new Error("Help request not found");
+      if (request.isResolved) {
+        throw new Error("Cannot volunteer for a resolved help request");
+      }
 
       const alreadyVolunteered = request.volunteers.some(
         (v) => v.toString() === context.user.id

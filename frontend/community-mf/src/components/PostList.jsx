@@ -1,9 +1,8 @@
 import { gql } from "@apollo/client";
-import { useMutation } from "@apollo/client/react";
 import { useQuery } from "@apollo/client/react";
 
 const GET_POSTS = gql`
-  query {
+  query GetPosts {
     getPosts {
       id
       title

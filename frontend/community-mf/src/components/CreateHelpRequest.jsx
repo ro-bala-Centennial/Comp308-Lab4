@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
-import { useQuery } from "@apollo/client/react";
 
 const CREATE_HELP_REQUEST = gql`
   mutation CreateHelpRequest($description: String!, $location: String) {
@@ -21,7 +20,7 @@ export default function CreateHelpRequest() {
   });
 
   const [createHelpRequest, { loading, error }] = useMutation(CREATE_HELP_REQUEST, {
-    refetchQueries: ["getHelpRequests"],
+    refetchQueries: ["GetHelpRequests"],
   });
   const handleSubmit = async (e) => {
     e.preventDefault();

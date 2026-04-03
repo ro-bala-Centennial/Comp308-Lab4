@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
-import { useQuery } from "@apollo/client/react";
 
 const CREATE_POST = gql`
   mutation CreatePost($title: String!, $content: String!, $category: String!, $aiSummary: String) {
@@ -22,7 +21,7 @@ export default function CreatePost() {
   });
 
   const [createPost, { loading, error }] = useMutation(CREATE_POST, {
-    refetchQueries: ["getPosts"],
+    refetchQueries: ["GetPosts"],
   });
 
   const handleSubmit = async (e) => {

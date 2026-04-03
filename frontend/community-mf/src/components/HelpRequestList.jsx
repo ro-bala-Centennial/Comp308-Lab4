@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client/react";
 import { useQuery } from "@apollo/client/react";
 
 const GET_HELP_REQUESTS = gql`
-  query {
+  query GetHelpRequests {
     getHelpRequests {
       id
       description
@@ -26,7 +26,7 @@ const VOLUNTEER = gql`
 export default function HelpRequestList() {
   const { data, loading, error } = useQuery(GET_HELP_REQUESTS);
   const [volunteerForHelpRequest] = useMutation(VOLUNTEER, {
-    refetchQueries: ["getHelpRequests"],
+    refetchQueries: ["GetHelpRequests"],
   });
 
   const handleVolunteer = async (id) => {
@@ -45,7 +45,9 @@ export default function HelpRequestList() {
           <p><strong>Location:</strong> {request.location}</p>
           <p><strong>Resolved:</strong> {request.isResolved ? "Yes" : "No"}</p>
           <p><strong>Volunteers:</strong> {request.volunteers.length}</p>
-          <button onClick={() => handleVolunteer(request.id)}>Volunteer</button>
+          <button onClick={() => handleVolunteer(request.id)} disabled={request.isResolved}>
+            {request.isResolved ? "Closed" : "Volunteer"}
+          </button>
         </div>
       ))}
     </div>
